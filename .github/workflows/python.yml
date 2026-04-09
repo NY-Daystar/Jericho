@@ -1,0 +1,29 @@
+name: Jericho-CI
+
+on:
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main, develop]
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+            - name: Set up Python 3.14
+              uses: actions/setup-python@v3
+              with:
+                  python-version: "3.14"
+            - name: Install dependencies
+              run: |
+                  pip install --upgrade pip
+                  pip install poetry
+                  poetry install --no-root
+            - name: Test with pytest
+              run: |
+                  poetry run pytest
