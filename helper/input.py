@@ -1,14 +1,23 @@
+"""handle user's input"""
+
+__all__ = ["ask_folder"]
+
 from os.path import exists
-from typing import Tuple
+from typing import Tuple, Set
 
-def askYesNo(question:str) -> bool :
+def ask_yes_no(question:str) -> bool :
+    """askYesNo : ask input user to get yes or no"""
     value: str= input(f"{question} (Y/n) ? ")
-    return value == "Y" or value == "y" or value == "yes" or value == "Yes"
+    values: Set[str] = set(['y', 'Y', 'yes', 'Yes'])
+    return value in values
+    # TODO return value == "Y" or value == "y" or value == "yes" or value == "Yes"
 
-def askFolder(question: str, default:str, check:bool = True) -> Tuple[str, bool] :
+def ask_folder(question: str, default:str, check:bool = True) -> Tuple[str, bool] :
+    """askFolder : ask input user to get folder path"""
     folder: str = input(f"\n{question} (default: {default}) : ")
-    if folder == "": folder=default
+    if not folder:
+        folder=default
     exist: bool = exists(folder)
     if not exist and check:
-        return folder, askYesNo(f"Your folder doesn't exists, do you want to continue")
+        return folder, ask_yes_no("Your folder doesn't exists, do you want to continue")
     return folder, True

@@ -1,4 +1,4 @@
-'''Jericho package'''
+"""Jericho"""
 
 from jericho import main
 

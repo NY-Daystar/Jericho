@@ -31,10 +31,10 @@
 
 This application is a tool to translate english files to french files
 
-1. Download `Jericho.exe` project from
-   [this link](https://github.com/NY-Daystar/Jericho/releases/download/v0.1.0/Jericho.exe)
+1. Download `Jericho` project from
+   [this link](https://github.com/NY-Daystar/Jericho/releases/download/v0.1.0/jericho.zip)
 
-1. Launch `Jericho.exe`
+1. Launch `jericho.exe`
 
 1. It gonna ask you the `source` folder containing files to translate (default: data/source) like below  
    ![source](docs/tree-source.png)

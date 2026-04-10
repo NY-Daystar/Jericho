@@ -15,8 +15,6 @@ build: setup
 	@mkdir -p "${BUILD_DIRECTORY}"
 
 	@poetry run pyinstaller ${APP_NAME}.py --icon="./assets/logo.ico" --onedir -y --clean --log-level ERROR
-
-	@cp ./config.example.json ./${BUILD_DIRECTORY}/${APP_NAME}/config.json
 	@echo "Build successful"
 
 run:

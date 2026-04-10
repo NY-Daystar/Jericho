@@ -1,9 +1,11 @@
-from deep_translator import GoogleTranslator
+"""translator from google"""
 
 from typing import Tuple
 
+from deep_translator import GoogleTranslator
+
 def translate(data: str, language_source="en", language_target="fr") -> Tuple[str, Exception]:
-    '''translate will translate data from language_source to language_target'''
+    """translate will translate data from language_source to language_target"""
     gs: GoogleTranslator = GoogleTranslator(source=language_source, target=language_target)
     
     try:
