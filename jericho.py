@@ -1,50 +1,48 @@
-import logging
+"""Jericho"""
 
-from pathlib import Path
+import logging
+import sys
+
 from os.path import join
 from os import makedirs
-from sys import exit
 
 import helper
-import logger
-import config.constants as constants
+from logger import set_log_level, log
+from config import constants
 import translator
 
 from config import Config
 
 def main():
-    log: logging.Logger = logger.get()
-    logger.set_log_level(log)
-    
-    app_path: Path = helper.get_app_path(__file__)
-   
-    log.debug("Application path: %s", app_path)
+    set_log_level(log)
+
     log.info("Application %s (%s) ", constants.PROJECT, constants.VERSION)
+    
+    app_path: str = helper.get_app_path(__file__)
+    log.debug("Application path: %s", app_path)
 
     config_path: str = join(app_path, constants.CONFIG_PATH)
-    config, err = Config.load(config_path)
-    if err is not None:
-        log.warning("Load config: %s", err)
-        config.save()
+    config, _ = Config.load(config_path)
     
-    config.source_directory, keep = helper.askFolder("Choose your source folder", default=config.source_directory)
+    config.source_directory, keep = helper.ask_folder("Choose your source folder", 
+                                                     default=config.source_directory)
     if not keep:
-        exit(1)
+        sys.exit(0)
     
-    config.target_directory, keep = helper.askFolder("Choose your target folder", default=config.target_directory, check=False)
+    config.target_directory, keep = helper.ask_folder("Choose your target folder",
+                                                     default=config.target_directory, 
+                                                     check=False)
     if not keep:
-        exit(1)
+        sys.exit(0)
+
     config.save()
-    
-
     log.debug("%r", config.__dict__)
-    log.debug("source: %s target: %s", config.source_directory, config.target_directory)
+    
+    process(config)
 
-    makedirs(config.target_directory, exist_ok=True)
-
-    translate(config, log)
-
-def translate(cfg: Config, log: logging.Logger): 
+def process(cfg: Config):
+    """Start processus to translate"""
+    makedirs(cfg.target_directory, exist_ok=True)
     files: list[str] = helper.get_files(cfg.source_directory, ".txt")
     f_number: int = len(files)
     for index, file in enumerate(files):
@@ -56,7 +54,7 @@ def translate(cfg: Config, log: logging.Logger):
             continue
 
         translated, err = translator.translate(data)
-        if err != None:
+        if err is not None:
             log.warning("translating %s: %s", src_path, err)
             continue
 
@@ -67,6 +65,7 @@ def translate(cfg: Config, log: logging.Logger):
             continue
 
     print("✅ All files are transltated")
+
 
 if __name__ == "__main__":
     main()

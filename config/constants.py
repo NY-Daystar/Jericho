@@ -1,6 +1,7 @@
-'''Constants for Jericho projects'''
+"""Constants for Jericho projects"""
 
-# Main constant
+__all__ = ["PROJECT", "VERSION", "CONFIG_PATH"]
+
 PROJECT: str = 'Jericho'
 VERSION: str = 'v0.1.0'
 
