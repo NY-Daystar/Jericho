@@ -1,4 +1,4 @@
-"""Jericho"""
+"""Jericho """
 
 from jericho import main
 

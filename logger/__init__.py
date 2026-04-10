@@ -1,19 +1,22 @@
-"""list of logger functions."""
+"""Logger module """
 
 __all__ = ["set_log_level", "log"]
 
-import sys
+import getopt
 import logging
+import sys
+from typing import List, Tuple
 
-import helper
 from config.constants import PROJECT
 
-log : logging.Logger | None = None
+SHORT_OPTIONS = 'd'
+LONG_OPTIONS = ['debug']
+
+log : logging.Logger
+created : bool = False
 
 def setup() -> logging.Logger:
-    """
-    setup : initialize logging format
-    """
+    """Setup : initialize logging format """
     logger: logging.Logger = logging.getLogger(PROJECT)
     log_formatter = '[%(asctime)s] : %(message)s' # Syntax of the log
     date_format = '%Y-%m-%dT%H:%M:%SZ'
@@ -25,12 +28,29 @@ def setup() -> logging.Logger:
     return logger
 
 def set_log_level(logger: logging.Logger):
-    """
-    Set level log
-    """
-    level: int = logging.DEBUG if helper.is_arg_debug() else logging.INFO
+    """Set level log """
+    level: int = logging.DEBUG if is_arg_debug() else logging.INFO
     logger.setLevel(level)
     logger.debug('Set debug mode')
 
-if log is None:
+def is_arg_debug() -> bool:
+    """ Check if we launch into debug mode """
+    options: List[str] = ["-d", "--debug"]  # Options to check
+    try:
+        arguments, _ = get_options()
+
+        for current_argument, _ in arguments:
+            if current_argument in (options):
+                return True
+    except getopt.error:
+        pass
+    return False
+
+def get_options() -> Tuple[List[Tuple[str, str]], List[str]]:
+    """ Get all options from console """
+    return getopt.getopt(
+        sys.argv[1:], SHORT_OPTIONS, LONG_OPTIONS)
+
+
+if not created:
     log = setup()

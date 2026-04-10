@@ -1,4 +1,4 @@
-"""Config of Jericho"""
+"""Config of Jericho """
 
 import json
 import os
@@ -7,26 +7,35 @@ from typing import Tuple
 from .constants import DEFAULT_DEBUG, DEFAULT_SOURCE_DIR, DEFAULT_TARGET_DIR
 
 class Config:
-    """Config of the application"""
+    """Config of the application """
+
     path: str
     debug: str
     source_directory: str
     target_directory: str
 
     def __init__(self, path, debug, source_directory, target_directory):
+        """Create configuration object
+
+        Args:
+            path (str): path where to find config
+            debug (bool): debug mode activated or not
+            source_directory (str): directory to find files to translate
+            target_directory (str): directory to find files translated
+        """
         self.path = path
         self.debug = debug
         self.source_directory = source_directory
         self.target_directory = target_directory
 
     def save(self):
-        """Save config into the path define"""
+        """Save config into the path define """
         with open(self.path, 'w', encoding="utf-8") as document:
             json.dump(self.to_dict(), document, indent=4)
 
     @classmethod
-    def load(cls, filepath: str) -> Tuple[Config, Exception]:
-        """Create config object loading data from config.json file"""
+    def load(cls, filepath: str) -> Tuple[Config | None, Exception | None]:
+        """Create config object loading data from config.json file """
         default: Config = cls(path=filepath, debug=DEFAULT_DEBUG,
                     source_directory=DEFAULT_SOURCE_DIR, target_directory=DEFAULT_TARGET_DIR)
 
