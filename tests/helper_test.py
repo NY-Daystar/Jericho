@@ -1,4 +1,4 @@
-"""poetry run pytest tests/helper_test.py"""
+"""poetry run pytest tests/helper_test.py -s """
 
 import os
 

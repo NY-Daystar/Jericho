@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Add bubbletea interface
+#### 0.2.0 - April, 12th 2026 - Improving
 
-#### 0.1.0 - April, 9th 2026 - First version
+##### Added
+
+- improving logging
+- wait console to see process
+
+##### Fixed
+
+- codacy issues
+
+#### 0.1.0 - April, 10th 2026 - First version

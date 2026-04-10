@@ -32,7 +32,7 @@
 This application is a tool to translate english files to french files
 
 1. Download `Jericho` project from
-   [this link](https://github.com/NY-Daystar/Jericho/releases/download/v0.1.0/jericho.zip)
+   [this link](https://github.com/NY-Daystar/Jericho/releases/download/v0.2.0/jericho.exe)
 
 1. Launch `jericho.exe`
 

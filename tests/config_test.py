@@ -1,4 +1,4 @@
-"""poetry run pytest tests/config_test.py"""
+"""poetry run pytest tests/config_test.py -s """
 
 import os
 import helper
@@ -43,3 +43,14 @@ def test_bad_configuration():
     # Assert
     assert cfg == None
     assert err != None
+
+def test_config_not_found():
+    # Arrange
+    cfgpath:str = os.path.join(testpath, "samples", "unfound.json")
+
+    # Act
+    cfg, err = Config.load(cfgpath)
+
+    # Assert
+    assert cfg != None
+    assert isinstance(err, FileNotFoundError)

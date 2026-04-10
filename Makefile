@@ -1,5 +1,5 @@
 APP_NAME="jericho"
-APP_VERSION="0.1.0"
+APP_VERSION="0.2.0"
 BUILD_DIRECTORY="dist"
 
 .PHONY: setup build run run-debug test package-list package-install package-uninstall coverage sca list
@@ -14,7 +14,7 @@ build: setup
 	@echo "Building ${APP_NAME} in ${APP_VERSION}..."
 	@mkdir -p "${BUILD_DIRECTORY}"
 
-	@poetry run pyinstaller ${APP_NAME}.py --icon="./assets/logo.ico" --onedir -y --clean --log-level ERROR
+	@poetry run pyinstaller ${APP_NAME}.py --icon="./assets/logo.ico" --onefile --log-level ERROR
 	@echo "Build successful"
 
 run:
